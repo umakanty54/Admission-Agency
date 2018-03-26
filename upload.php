@@ -1,0 +1,22 @@
+<?php
+if(isset($_FILES['file'])){
+	$file=$_FILES['file'];
+	$filename=$file['name'];
+	$filetmp=$file['tmp_name'];
+	$filesize=$file['size'];
+	$file_error=$file['error'];
+	$file_ext=explode('.',$file_name);
+	$file_ext=strtolower(end($file_ext));
+	$allowed=array('pdf','txt','jpg');
+	if(in_array($file_ext,$allowed)){
+		if($file_error===0){
+			if($filesize<=2000000){
+				$file_dest='files/'.$filename;
+				if(move_uploaded_file($filetmp,$file_dest)){
+					echo $file_dest;
+				}
+			}
+		}
+	}
+}
+?>
